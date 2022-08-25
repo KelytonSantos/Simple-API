@@ -49,6 +49,5 @@ public class UserController {
         User user = userService.findById(id);   //encontrando id
         userService.delete(user); //deletando user
         return ResponseEntity.status(HttpStatus.OK).body(user); //retornando ok
-
     }
 }

@@ -16,26 +16,26 @@ import com.springboot.lucas.demo.service.exception.ResourceNotFoundException;
 public class UserService {
     
     @Autowired
-    private UserRepository userRepositorie;
+    private UserRepository userRepository;
 
 
     public List<User> findAll(){
-        return userRepositorie.findAll();
+        return userRepository.findAll();
     }
 
 
     public User findById(String id){
-        Optional<User> obj1 = userRepositorie.findById(id);
+        Optional<User> obj1 = userRepository.findById(id);
         return obj1.orElseThrow(() -> new ResourceNotFoundException(id)) ;
     }
 
     @Transactional
     public User save(User user){
-        return userRepositorie.save(user);
+        return userRepository.save(user);
     }
 
     @Transactional
     public void delete(User user){
-        userRepositorie.delete(user);
+        userRepository.delete(user);
     }
 }

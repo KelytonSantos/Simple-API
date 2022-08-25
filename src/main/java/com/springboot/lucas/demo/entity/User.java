@@ -1,14 +1,19 @@
 package com.springboot.lucas.demo.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_user")
@@ -26,8 +31,10 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String email;
 
-    // @Column
-    // private Post post;
+    @JsonIgnore
+    @Column
+    @OneToMany(mappedBy = "user")//um para muitos(um user para muitos posts; NESSA CLASSE EU "RECEBO" AS LISTAS DE POST)
+    private List<Post> post = new ArrayList<>();
 
     public User(){
     }
@@ -36,7 +43,6 @@ public class User implements Serializable {
         this.id = id;
         this.name = name;
         this.email = email;
-        // this.post = post;
     }
 
     public static long getSerialversionuid() {
@@ -66,14 +72,14 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public List<Post> getPost() {
+        return post;
+    }
 
-    // public Post getPost() {
-    //     return post;
-    // }
-
-    // public void setPost(Post post) {
-    //     this.post = post;
-    // }
+    public void setPost(List<Post> post) {
+        this.post = post;
+    }
 
     @Override
     public int hashCode() {
